@@ -90,9 +90,6 @@ func (s *Service) List(filter ProductFilter, page, pageSize int) (ProductPage, e
 		totalPages = 1
 	}
 	start := (page - 1) * pageSize
-	if page > 1 {
-		start += pageSize
-	}
 	if start > len(filtered) {
 		start = len(filtered)
 	}
