@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2323,
+    "production_files": 37,
+    "production_packages": 8,
+    "test_files": 9,
+    "production_functions": 171,
+    "decision_points": 332
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": ["Product", "InventoryMovement", "PriceChange", "ProductNote"],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": ["accept product draft", "validate camping category and price", "persist the product record", "render it in a paged listing"],
+      "test": "TestWorkflowProductOnboarding"
+    },
+    {
+      "steps": ["load an existing product", "append a stock movement", "approve and persist a price change", "show the updated summary"],
+      "test": "TestWorkflowStockAndPricing"
+    },
+    {
+      "steps": ["add a product note", "query the active catalog", "assemble stock and price summary", "reopen durable storage and verify records"],
+      "test": "TestWorkflowReportingAndRecovery"
+    }
+  ]
+}
